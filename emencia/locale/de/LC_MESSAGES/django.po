@@ -607,7 +607,7 @@ msgstr "klicken Sie hier"
 
 #: templates/newsletter/newsletter_link_unsubscribe.html:8
 msgid "For unsubscribing to this mailing list,"
-msgstr "Zum abbestellen,"
+msgstr "Zum Abbestellen,"
 
 #: templates/newsletter/newsletter_mail_verification.html:5
 msgid ""
