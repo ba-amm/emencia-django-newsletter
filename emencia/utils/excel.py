@@ -6,6 +6,9 @@ from django.db.models.query import QuerySet
 from django.db.models.query import ValuesQuerySet
 from django.http import HttpResponse
 
+from django.utils.timezone import is_aware
+from django.utils.timezone import make_naive
+from django.utils.timezone import get_current_timezone
 
 class ExcelResponse(HttpResponse):
     """ExcelResponse feeded by queryset"""
@@ -50,10 +53,14 @@ class ExcelResponse(HttpResponse):
                 for colx, value in enumerate(row):
                     if isinstance(value, datetime.datetime):
                         cell_style = styles['datetime']
+                        if is_aware(value):
+                            value = make_naive(value, get_current_timezone())
                     elif isinstance(value, datetime.date):
                         cell_style = styles['date']
                     elif isinstance(value, datetime.time):
                         cell_style = styles['time']
+                        if is_aware(value):
+                            value = make_naive(value, get_current_timezone())
                     else:
                         cell_style = styles['default']
                     sheet.write(rowx, colx, value, style=cell_style)
